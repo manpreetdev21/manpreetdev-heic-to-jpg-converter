@@ -1,0 +1,54 @@
+/* HEIC to JPG Converter */
+
+.hic-toasts {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: 9999999;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	max-width: 360px;
+	pointer-events: none;
+}
+
+.hic-toast {
+	background: #1d2327;
+	color: #fff;
+	padding: 10px 14px;
+	border-left: 4px solid #72aee6;
+	border-radius: 4px;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+	font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	pointer-events: auto;
+}
+
+.hic-toast.is-success {
+	border-left-color: #00a32a;
+}
+
+.hic-toast.is-error {
+	border-left-color: #d63638;
+}
+
+.hic-progress {
+	margin-left: 10px;
+	font-weight: 600;
+}
+
+.hic-table {
+	max-width: 900px;
+}
+
+.hic-status.is-busy {
+	color: #2271b1;
+}
+
+.hic-status.is-done {
+	color: #00a32a;
+	font-weight: 600;
+}
+
+.hic-status.is-error {
+	color: #d63638;
+}
