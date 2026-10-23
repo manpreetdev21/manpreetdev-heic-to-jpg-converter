@@ -1,0 +1,19 @@
+# Build output (release zip lives in the plugin root)
+*.zip
+
+# Dependencies
+node_modules/
+vendor/bin/
+
+# Editors / OS
+.idea/
+.vscode/
+*.swp
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local tooling
+.claude/
+.env

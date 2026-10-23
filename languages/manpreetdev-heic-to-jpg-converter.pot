@@ -1,0 +1,691 @@
+# Copyright (C) 2026 Manpreet Singh
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ManpreetDev HEIC to JPG Converter 1.2.0\n"
+"Report-Msgid-Bugs-To: https://github.com/manpreetdev21/manpreetdev-heic-to-jpg-converter/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-23T07:35:18+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Domain: manpreetdev-heic-to-jpg-converter\n"
+
+#. Plugin Name of the plugin
+#: manpreetdev-heic-to-jpg-converter.php includes/admin-page.php:112
+msgid "ManpreetDev HEIC to JPG Converter"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: manpreetdev-heic-to-jpg-converter.php
+msgid "https://github.com/manpreetdev21/manpreetdev-heic-to-jpg-converter"
+msgstr ""
+
+#. Description of the plugin
+#: manpreetdev-heic-to-jpg-converter.php
+msgid "Automatically converts iPhone .heic/.heif photos to JPG or PNG inside the browser — when they are uploaded, and for HEIC images already in the Media Library. No ImageMagick or other server-side HEIC support needed."
+msgstr ""
+
+#. Author of the plugin
+#: manpreetdev-heic-to-jpg-converter.php
+msgid "Manpreet Singh"
+msgstr ""
+
+#. Author URI of the plugin
+#: manpreetdev-heic-to-jpg-converter.php
+msgid "https://github.com/manpreetdev21/"
+msgstr ""
+
+#: includes/admin-page.php:9
+msgid "HEIC Converter"
+msgstr ""
+
+#: includes/admin-page.php:14 includes/admin-page.php:96 manpreetdev-heic-to-jpg-converter.php:266
+msgid "Tools"
+msgstr ""
+
+#: includes/admin-page.php:15 includes/admin-page.php:15 includes/admin-page.php:99 includes/help-page.php:126 manpreetdev-heic-to-jpg-converter.php:268
+msgid "Settings"
+msgstr ""
+
+#: includes/admin-page.php:16 includes/admin-page.php:16 includes/admin-page.php:100 manpreetdev-heic-to-jpg-converter.php:269
+msgid "Logs"
+msgstr ""
+
+#: includes/admin-page.php:17 includes/admin-page.php:17 includes/admin-page.php:102 manpreetdev-heic-to-jpg-converter.php:271
+msgid "Help"
+msgstr ""
+
+#: includes/admin-page.php:62
+msgid "HEIC Converter:"
+msgstr ""
+
+#: includes/admin-page.php:63
+msgid "Preparing…"
+msgstr ""
+
+#: includes/admin-page.php:65 includes/logs.php:226
+msgid "Details"
+msgstr ""
+
+#. translators: %d: number of images
+#: includes/admin-page.php:80
+#, php-format
+msgid "%d HEIC image cannot be displayed in most browsers."
+msgid_plural "%d HEIC images cannot be displayed in most browsers."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin-page.php:84
+msgid "Convert now"
+msgstr ""
+
+#: includes/admin-page.php:115
+msgid "iPhone HEIC/HEIF photos are converted to JPG or PNG inside your browser. The server does not need ImageMagick or any HEIC support."
+msgstr ""
+
+#: includes/admin-page.php:119
+msgid "HEIC Converter pages"
+msgstr ""
+
+#: includes/admin-page.php:157
+msgid "On"
+msgstr ""
+
+#: includes/admin-page.php:158
+msgid "Off"
+msgstr ""
+
+#: includes/admin-page.php:162
+msgid "Waiting to convert"
+msgstr ""
+
+#: includes/admin-page.php:163
+msgid "Converted in library"
+msgstr ""
+
+#: includes/admin-page.php:164
+msgid "Converted on upload"
+msgstr ""
+
+#: includes/admin-page.php:165 includes/assets.php:100 includes/logs.php:247
+msgid "Failed"
+msgstr ""
+
+#: includes/admin-page.php:173
+msgid "HEIC images in the Media Library"
+msgstr ""
+
+#: includes/admin-page.php:174
+msgid "Each image keeps its Media Library ID, so pages, featured images and Elementor widgets update automatically."
+msgstr ""
+
+#. translators: %d: number of images
+#: includes/admin-page.php:183
+#, php-format
+msgid "Retry %d failed"
+msgid_plural "Retry %d failed"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of images, 2: JPG or PNG
+#: includes/admin-page.php:192
+#, php-format
+msgid "Convert %1$d image to %2$s"
+msgid_plural "Convert %1$d images to %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin-page.php:205
+msgid "All caught up"
+msgstr ""
+
+#: includes/admin-page.php:206
+msgid "There are no HEIC images left to convert."
+msgstr ""
+
+#: includes/admin-page.php:214
+msgid "Showing the newest 200. Reload this page after they finish to continue with the rest."
+msgstr ""
+
+#: includes/admin-page.php:221 includes/logs.php:225
+msgid "File"
+msgstr ""
+
+#: includes/admin-page.php:222
+msgid "Uploaded"
+msgstr ""
+
+#: includes/admin-page.php:223
+msgid "Status"
+msgstr ""
+
+#: includes/admin-page.php:240
+msgid "Last attempt failed"
+msgstr ""
+
+#: includes/admin-page.php:240 includes/assets.php:93
+msgid "Waiting"
+msgstr ""
+
+#: includes/admin-page.php:248
+msgid "Keep this page open while converting: the work happens in your browser."
+msgstr ""
+
+#: includes/admin-page.php:253
+msgid "Current setup"
+msgstr ""
+
+#: includes/admin-page.php:255 includes/admin-page.php:299
+msgid "Output"
+msgstr ""
+
+#: includes/admin-page.php:257 includes/admin-page.php:325
+msgid "Maximum size"
+msgstr ""
+
+#: includes/admin-page.php:258
+msgid "Original"
+msgstr ""
+
+#: includes/admin-page.php:259 includes/help-page.php:25
+msgid "Converted by"
+msgstr ""
+
+#: includes/admin-page.php:260 includes/help-page.php:25
+msgid "Server"
+msgstr ""
+
+#: includes/admin-page.php:260 includes/help-page.php:25
+msgid "Browser"
+msgstr ""
+
+#: includes/admin-page.php:261
+msgid "At the same time"
+msgstr ""
+
+#: includes/admin-page.php:263
+msgid "Convert on upload"
+msgstr ""
+
+#: includes/admin-page.php:265
+msgid "Background conversion"
+msgstr ""
+
+#: includes/admin-page.php:267
+msgid "Keep original .heic"
+msgstr ""
+
+#: includes/admin-page.php:269
+msgid "Update old links"
+msgstr ""
+
+#: includes/admin-page.php:273
+msgid "Change settings"
+msgstr ""
+
+#: includes/admin-page.php:302
+msgid "Convert to"
+msgstr ""
+
+#: includes/admin-page.php:306
+msgid "Recommended for photos. Much smaller files."
+msgstr ""
+
+#: includes/admin-page.php:310
+msgid "Lossless, but files are several times larger."
+msgstr ""
+
+#: includes/admin-page.php:316
+msgid "JPG quality"
+msgstr ""
+
+#: includes/admin-page.php:321
+msgid "85 gives a good balance of quality and file size. Ignored for PNG."
+msgstr ""
+
+#: includes/admin-page.php:330
+msgid "Longest side after conversion. Large iPhone photos (up to 48 MP) are scaled down to this so they upload quickly and stay under server upload limits. 0 keeps the original size (browsers still cap very large photos at about 16 megapixels)."
+msgstr ""
+
+#: includes/admin-page.php:334
+msgid "Photos converted at the same time"
+msgstr ""
+
+#: includes/admin-page.php:340
+msgid "How many photos the browser converts in parallel; the rest wait their turn. Each large iPhone photo needs several hundred MB of memory while converting, so use 1 or 2 on phones and older computers."
+msgstr ""
+
+#: includes/admin-page.php:345
+msgid "Photos converted in the browser do not keep their camera details (EXIF), such as the camera model, date taken or GPS location. This protects visitors from seeing where a photo was taken. Keep the original .heic file if you need that information."
+msgstr ""
+
+#: includes/admin-page.php:350
+msgid "Automatic conversion"
+msgstr ""
+
+#: includes/admin-page.php:352
+msgid "Convert while uploading"
+msgstr ""
+
+#: includes/admin-page.php:352
+msgid "HEIC files are converted before they are sent: Media Library, Elementor, block editor and Media → Add New."
+msgstr ""
+
+#: includes/admin-page.php:353
+msgid "Convert existing images in the background"
+msgstr ""
+
+#: includes/admin-page.php:353
+msgid "HEIC images already in the Media Library are converted while an editor is logged in to the dashboard (up to 25 per page load)."
+msgstr ""
+
+#: includes/admin-page.php:356
+msgid "Let the server convert when it can"
+msgstr ""
+
+#: includes/admin-page.php:358
+msgid "Your server can read HEIC. New uploads and existing images are converted by the server (no browser work, keeps working on slow devices). New uploads use WordPress's own JPG quality; size and format follow the settings above. If the server fails on a file, the browser converts it instead."
+msgstr ""
+
+#: includes/admin-page.php:359
+msgid "Not available: this server cannot read HEIC (needs WordPress 6.7+ and Imagick with HEIC support). The browser is used instead."
+msgstr ""
+
+#: includes/admin-page.php:366
+msgid "After converting"
+msgstr ""
+
+#: includes/admin-page.php:368
+msgid "Keep the original .heic file"
+msgstr ""
+
+#: includes/admin-page.php:368
+msgid "Stays on the server as a backup and is deleted together with the attachment."
+msgstr ""
+
+#: includes/admin-page.php:369
+msgid "Update old .heic links"
+msgstr ""
+
+#: includes/admin-page.php:369
+msgid "Replaces links to the old file in posts, pages and Elementor layouts, then clears Elementor's CSS cache."
+msgstr ""
+
+#: includes/assets.php:33
+msgid "This HEIC photo could not be read by any of the converters."
+msgstr ""
+
+#. translators: %s: file name
+#: includes/assets.php:35
+#, php-format
+msgid "Converting %s…"
+msgstr ""
+
+#. translators: %s: new file name
+#: includes/assets.php:37
+#, php-format
+msgid "Converted to %s — uploading."
+msgstr ""
+
+#. translators: %s: file name
+#: includes/assets.php:39
+#, php-format
+msgid "Could not convert %s in this browser. Uploading the original; it can be converted later from HEIC Converter → Tools."
+msgstr ""
+
+#: includes/assets.php:94
+msgid "Converting on server…"
+msgstr ""
+
+#: includes/assets.php:95
+msgid "Downloading…"
+msgstr ""
+
+#: includes/assets.php:96
+msgid "Converting…"
+msgstr ""
+
+#: includes/assets.php:97
+msgid "Saving…"
+msgstr ""
+
+#: includes/assets.php:98 includes/logs.php:170 includes/logs.php:247
+msgid "Converted"
+msgstr ""
+
+#: includes/assets.php:99
+msgid "Being converted in another tab"
+msgstr ""
+
+#. translators: 1: processed count, 2: total count
+#: includes/assets.php:102
+#, php-format
+msgid "Converting HEIC images: %1$d of %2$d…"
+msgstr ""
+
+#. translators: 1: converted count, 2: failed count
+#: includes/assets.php:104
+#, php-format
+msgid "Finished. %1$d converted, %2$d failed."
+msgstr ""
+
+#: includes/assets.php:105
+msgid "HEIC images are still being converted. Leave anyway?"
+msgstr ""
+
+#: includes/help-page.php:16
+msgid "Yes"
+msgstr ""
+
+#: includes/help-page.php:17
+msgid "No"
+msgstr ""
+
+#: includes/help-page.php:20
+msgid "Plugin version"
+msgstr ""
+
+#: includes/help-page.php:21
+msgid "WordPress version"
+msgstr ""
+
+#: includes/help-page.php:22
+msgid "PHP version"
+msgstr ""
+
+#: includes/help-page.php:23
+msgid "Image editor (thumbnails)"
+msgstr ""
+
+#: includes/help-page.php:23
+msgid "None found"
+msgstr ""
+
+#: includes/help-page.php:24
+msgid "Server can read HEIC"
+msgstr ""
+
+#: includes/help-page.php:24
+msgid "No (the browser converts)"
+msgstr ""
+
+#: includes/help-page.php:26
+msgid "Maximum upload size"
+msgstr ""
+
+#: includes/help-page.php:27
+msgid "PHP memory limit"
+msgstr ""
+
+#: includes/help-page.php:27
+msgid "Unlimited"
+msgstr ""
+
+#: includes/help-page.php:28
+msgid "Uploads folder writable"
+msgstr ""
+
+#: includes/help-page.php:29
+msgid "Elementor active"
+msgstr ""
+
+#: includes/help-page.php:30
+msgid "HEIC images waiting"
+msgstr ""
+
+#: includes/help-page.php:37
+msgid "Does the server need ImageMagick or libheif?"
+msgstr ""
+
+#: includes/help-page.php:38
+msgid "No. By default the photo is converted in the browser of the person uploading, and the server only receives a normal JPG or PNG. If your server can read HEIC (WordPress 6.7+ with Imagick), you can let it do the work instead under Settings."
+msgstr ""
+
+#: includes/help-page.php:41
+msgid "Which iPhone photos are supported?"
+msgstr ""
+
+#: includes/help-page.php:42
+msgid "Photos from all iPhones, including iOS 18 HDR photos. The plugin tries the browser's own HEIC support first (Safari), then heic-to (libheif 1.23), then heic2any as a last resort. The Logs page shows which one converted each photo."
+msgstr ""
+
+#: includes/help-page.php:45
+msgid "Do I have to keep the Tools page open?"
+msgstr ""
+
+#: includes/help-page.php:46
+msgid "Yes, while existing images are being converted in the browser. Background conversion also runs on other dashboard pages, up to 25 images per page load. With server conversion the work still starts from the page, but your device does not do the heavy lifting."
+msgstr ""
+
+#: includes/help-page.php:49
+msgid "Will my pages and Elementor layouts break?"
+msgstr ""
+
+#: includes/help-page.php:50
+msgid "No. The attachment keeps its Media Library ID, so featured images, galleries and Elementor widgets point at the new file automatically. Links typed into content (including resized copies such as image-300x200.heic) are updated when \"Update old .heic links\" is on."
+msgstr ""
+
+#: includes/help-page.php:53
+msgid "Is the camera data (EXIF) kept?"
+msgstr ""
+
+#: includes/help-page.php:54
+msgid "No. Browser conversion removes the camera model, date taken and GPS location from the new image, which also stops visitors from seeing where a photo was taken. Keep the original .heic file if you need that information."
+msgstr ""
+
+#: includes/help-page.php:57
+msgid "An image failed to convert. What now?"
+msgstr ""
+
+#: includes/help-page.php:58
+msgid "Open Logs to see the reason, then use \"Retry failed\" on the Tools page. If your media is served from another domain (a CDN or offload plugin), that domain must allow cross-origin requests from your admin area. Very large photos may need \"Photos converted at the same time\" set to 1."
+msgstr ""
+
+#: includes/help-page.php:61
+msgid "Does it work for uploads from the front end (forms)?"
+msgstr ""
+
+#: includes/help-page.php:62
+msgid "Not while uploading: conversion runs in the dashboard and editors. If a form plugin saves HEIC photos to the Media Library, they are listed under Tools and converted from there or in the background."
+msgstr ""
+
+#: includes/help-page.php:69
+msgid "How it works"
+msgstr ""
+
+#: includes/help-page.php:72
+msgid "New uploads"
+msgstr ""
+
+#: includes/help-page.php:73
+msgid "Drop a .heic photo into the Media Library, the block editor, Elementor or Media → Add New. It is converted to JPG or PNG before it is uploaded."
+msgstr ""
+
+#: includes/help-page.php:76
+msgid "Existing images"
+msgstr ""
+
+#: includes/help-page.php:77
+msgid "HEIC images already in the Media Library are listed under Tools. Convert them all at once, or let them convert in the background while you work in the dashboard."
+msgstr ""
+
+#: includes/help-page.php:80
+msgid "Same attachment, new file"
+msgstr ""
+
+#: includes/help-page.php:81
+msgid "The converted image replaces the HEIC file inside the same attachment, thumbnails are rebuilt and old links are updated."
+msgstr ""
+
+#: includes/help-page.php:84
+msgid "Everything is logged"
+msgstr ""
+
+#: includes/help-page.php:85
+msgid "Logs shows every conversion with sizes, time taken, the converter used and any error."
+msgstr ""
+
+#: includes/help-page.php:91
+msgid "Frequently asked questions"
+msgstr ""
+
+#: includes/help-page.php:106
+msgid "System check"
+msgstr ""
+
+#: includes/help-page.php:122
+msgid "Quick links"
+msgstr ""
+
+#: includes/help-page.php:124
+msgid "Convert existing images"
+msgstr ""
+
+#: includes/help-page.php:127
+msgid "Conversion logs"
+msgstr ""
+
+#: includes/help-page.php:129
+msgid "Media Library"
+msgstr ""
+
+#: includes/help-page.php:130
+msgid "Plugin website"
+msgstr ""
+
+#: includes/help-page.php:131
+msgid "Report an issue"
+msgstr ""
+
+#: includes/logs.php:75 includes/logs.php:85
+msgid "You are not allowed to do this."
+msgstr ""
+
+#. translators: %s: seconds
+#: includes/logs.php:135
+#, php-format
+msgid "%s s"
+msgstr ""
+
+#: includes/logs.php:169
+msgid "All"
+msgstr ""
+
+#: includes/logs.php:171
+msgid "Errors"
+msgstr ""
+
+#: includes/logs.php:175
+msgid "The log was cleared."
+msgstr ""
+
+#: includes/logs.php:181
+msgid "Activity log"
+msgstr ""
+
+#. translators: %d: maximum number of log entries
+#: includes/logs.php:185
+#, php-format
+msgid "Every conversion on upload and in the Media Library. The latest %d events are kept."
+msgstr ""
+
+#: includes/logs.php:191
+msgid "Download CSV"
+msgstr ""
+
+#: includes/logs.php:192
+msgid "Clear the whole log?"
+msgstr ""
+
+#: includes/logs.php:195
+msgid "Clear log"
+msgstr ""
+
+#: includes/logs.php:204
+msgid "Nothing logged yet"
+msgstr ""
+
+#: includes/logs.php:205
+msgid "Conversions will appear here as soon as a HEIC photo is uploaded or converted."
+msgstr ""
+
+#: includes/logs.php:208
+msgid "Filter log"
+msgstr ""
+
+#: includes/logs.php:217
+msgid "No entries match this filter."
+msgstr ""
+
+#: includes/logs.php:223
+msgid "When"
+msgstr ""
+
+#: includes/logs.php:224
+msgid "Result"
+msgstr ""
+
+#: includes/logs.php:227
+msgid "User"
+msgstr ""
+
+#. translators: %s: human-readable time difference
+#: includes/logs.php:241
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: includes/logs.php:249
+msgid "Upload"
+msgstr ""
+
+#: includes/logs.php:249
+msgid "Library"
+msgstr ""
+
+#: includes/rest.php:79
+msgid "Attachment not found."
+msgstr ""
+
+#: includes/rest.php:84
+msgid "No converted file was received."
+msgstr ""
+
+#: includes/rest.php:93
+msgid "This image is already being converted."
+msgstr ""
+
+#. translators: %d: number of posts
+#: includes/rest.php:120
+#, php-format
+msgid "Links updated in %d post."
+msgid_plural "Links updated in %d posts."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/rest.php:147
+msgid "The uploads folder is not writable."
+msgstr ""
+
+#: includes/rest.php:160
+msgid "The converted file did not upload correctly."
+msgstr ""
+
+#: includes/rest.php:173
+msgid "Only JPG or PNG files can replace a HEIC image."
+msgstr ""
+
+#: includes/rest.php:181
+msgid "Could not save the converted file."
+msgstr ""
+
+#: includes/rest.php:201
+msgid "This server cannot read HEIC images."
+msgstr ""
+
+#: includes/rest.php:248
+msgid "The converted file is not a valid image."
+msgstr ""

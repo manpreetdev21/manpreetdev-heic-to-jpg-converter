@@ -6,12 +6,10 @@
 	'use strict';
 
 	var HIC = window.HIC;
-	if (!HIC) {
+	var plupload = window.plupload;
+	if (!HIC || !plupload) {
 		return;
 	}
-
-	// Runs before WordPress's own FilesAdded handler (default priority 0).
-	var PRIORITY = 100;
 
 	function convertAndAdd(uploader, nativeFile, name) {
 		var t = HIC.toast(HIC.sprintf(HIC.i18n.converting, name));
@@ -19,6 +17,7 @@
 		HIC.convert(nativeFile, name)
 			.then(function (converted) {
 				t.update(HIC.sprintf(HIC.i18n.converted, converted.name), 'success');
+				HIC.logUpload(nativeFile, name, converted);
 				uploader.addFile(converted, converted.name);
 			})
 			.catch(function (err) {
@@ -26,33 +25,35 @@
 					window.console.error('HEIC conversion failed:', err, err && err.details);
 				}
 				t.update(HIC.sprintf(HIC.i18n.failed, name), 'error');
+				HIC.logUpload(nativeFile, name, null, err);
 				// Upload the original so nothing is lost; it can be converted later.
 				nativeFile.__hicSkip = true;
 				uploader.addFile(nativeFile, name);
 			});
 	}
 
+	/*
+	 * A plupload file filter runs before a file enters the upload queue. Rejecting the
+	 * HEIC here (instead of removing it in FilesAdded) means a queue that is already
+	 * uploading can never pick up the original by mistake.
+	 */
+	plupload.addFileFilter('hic_heic', function (enabled, file, cb) {
+		var nativeFile = file && typeof file.getNative === 'function' ? file.getNative() : null;
+		if (!enabled || !nativeFile || nativeFile.__hicSkip || !HIC.isHeic(file)) {
+			cb(true);
+			return;
+		}
+		cb(false);
+		convertAndAdd(this, nativeFile, file.name);
+	});
+
 	function bindUploader(uploader) {
-		if (!uploader || uploader.__hicBound || typeof uploader.bind !== 'function') {
+		if (!uploader || !uploader.settings || uploader.__hicBound) {
 			return;
 		}
 		uploader.__hicBound = true;
-
-		uploader.bind('FilesAdded', function (up, files) {
-			for (var i = files.length - 1; i >= 0; i--) {
-				var file = files[i];
-				var nativeFile = file && typeof file.getNative === 'function' ? file.getNative() : null;
-
-				if (!nativeFile || nativeFile.__hicSkip || !HIC.isHeic(file)) {
-					continue;
-				}
-
-				// Take the HEIC file out before WordPress queues it for upload.
-				files.splice(i, 1);
-				up.removeFile(file);
-				convertAndAdd(up, nativeFile, file.name);
-			}
-		}, null, PRIORITY);
+		uploader.settings.filters = uploader.settings.filters || {};
+		uploader.settings.filters.hic_heic = true;
 	}
 
 	// Every uploader created by wp.media (Media Library grid, media modal, Elementor).
@@ -67,9 +68,7 @@
 
 	// Classic Media → Add New screen (plupload-handlers.js creates window.uploader).
 	function bindClassic() {
-		if (window.uploader && typeof window.uploader.bind === 'function') {
-			bindUploader(window.uploader);
-		}
+		bindUploader(window.uploader);
 	}
 	if ($) {
 		$(bindClassic);

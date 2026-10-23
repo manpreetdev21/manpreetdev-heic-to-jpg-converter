@@ -1,4 +1,6 @@
-/* HEIC to JPG Converter */
+/* ManpreetDev HEIC to JPG Converter */
+
+/* ---- Toasts (upload screens, editors) ------------------------------- */
 
 .hic-toasts {
 	position: fixed;
@@ -17,8 +19,8 @@
 	color: #fff;
 	padding: 10px 14px;
 	border-left: 4px solid #72aee6;
-	border-radius: 4px;
-	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+	border-radius: 6px;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 	font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 	pointer-events: auto;
 }
@@ -31,24 +33,899 @@
 	border-left-color: #d63638;
 }
 
-.hic-progress {
-	margin-left: 10px;
+/* Background-conversion notice on other admin screens. */
+.hic-bg-notice #hic-progress {
+	margin: 0 6px;
 	font-weight: 600;
+}
+
+/* ---- Plugin pages ---------------------------------------------------- */
+
+.hic-wrap {
+	--hic-accent: #2271b1;
+	--hic-accent-soft: #f0f6fc;
+	--hic-text: #1d2327;
+	--hic-muted: #646970;
+	--hic-border: #dcdcde;
+	--hic-surface: #fff;
+	--hic-ok: #00a32a;
+	--hic-ok-soft: #edfaef;
+	--hic-warn: #996800;
+	--hic-warn-soft: #fcf9e8;
+	--hic-error: #d63638;
+	--hic-error-soft: #fcf0f1;
+	--hic-radius: 12px;
+	max-width: 1280px;
+	color: var(--hic-text);
+}
+
+.hic-wrap .dashicons {
+	vertical-align: middle;
+}
+
+/* Header */
+
+.hic-header {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin: 12px 0 20px;
+}
+
+.hic-logo {
+	flex: none;
+	display: grid;
+	place-items: center;
+	width: 52px;
+	height: 52px;
+	border-radius: 14px;
+	background: linear-gradient(135deg, #2271b1, #3858e9);
+	box-shadow: 0 6px 16px rgba(34, 113, 177, 0.3);
+	color: #fff;
+}
+
+.hic-logo .dashicons {
+	width: 28px;
+	height: 28px;
+	font-size: 28px;
+}
+
+.hic-wrap .hic-header h1 {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+	font-size: 22px;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.hic-header p {
+	margin: 4px 0 0;
+	color: var(--hic-muted);
+	max-width: 760px;
+}
+
+.hic-badge {
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: var(--hic-accent-soft);
+	color: var(--hic-accent);
+	font-size: 12px;
+	font-weight: 600;
+}
+
+/* Page navigation */
+
+.hic-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid var(--hic-border);
+}
+
+.hic-nav a {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: -1px;
+	padding: 10px 16px;
+	border-bottom: 2px solid transparent;
+	color: var(--hic-muted);
+	font-size: 14px;
+	font-weight: 500;
+	text-decoration: none;
+	transition: color 0.15s, border-color 0.15s;
+}
+
+.hic-nav a:hover {
+	color: var(--hic-accent);
+}
+
+.hic-nav a.is-active {
+	border-bottom-color: var(--hic-accent);
+	color: var(--hic-text);
+}
+
+.hic-nav a:focus {
+	box-shadow: none;
+	outline: 2px solid var(--hic-accent);
+	outline-offset: -2px;
+}
+
+.hic-nav .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+/* Cards */
+
+.hic-card {
+	margin-bottom: 20px;
+	padding: 20px 24px;
+	border: 1px solid var(--hic-border);
+	border-radius: var(--hic-radius);
+	background: var(--hic-surface);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.hic-card h2 {
+	margin: 0 0 4px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.hic-card__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px 20px;
+	margin-bottom: 16px;
+}
+
+/* Title text shrinks before the buttons wrap below it. */
+.hic-card__head > div:first-child {
+	flex: 1 1 280px;
+	min-width: 0;
+}
+
+.hic-card__head > .hic-buttons {
+	flex: none;
+}
+
+.hic-muted {
+	margin: 0;
+	color: var(--hic-muted);
+}
+
+.hic-note {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin: 12px 0 0;
+	color: var(--hic-muted);
+	font-size: 13px;
+}
+
+.hic-pad {
+	padding: 16px 0;
+}
+
+/* Stats */
+
+.hic-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+	gap: 16px;
+	margin-bottom: 20px;
+}
+
+.hic-stat {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 18px 20px;
+	border: 1px solid var(--hic-border);
+	border-radius: var(--hic-radius);
+	background: var(--hic-surface);
+}
+
+.hic-stat__icon {
+	flex: none;
+	display: grid !important;
+	place-items: center;
+	width: 42px !important;
+	height: 42px !important;
+	border-radius: 10px;
+	background: #f0f0f1;
+	color: var(--hic-muted);
+	font-size: 22px !important;
+}
+
+.hic-stat strong {
+	display: block;
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.hic-stat span:not(.dashicons) {
+	color: var(--hic-muted);
+	font-size: 13px;
+}
+
+.hic-stat.is-ok .hic-stat__icon {
+	background: var(--hic-ok-soft);
+	color: var(--hic-ok);
+}
+
+.hic-stat.is-warn .hic-stat__icon {
+	background: var(--hic-warn-soft);
+	color: var(--hic-warn);
+}
+
+.hic-stat.is-error .hic-stat__icon {
+	background: var(--hic-error-soft);
+	color: var(--hic-error);
+}
+
+/* Tools layout */
+
+.hic-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 300px;
+	gap: 20px;
+	align-items: start;
+}
+
+@media (max-width: 1100px) {
+	.hic-grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.hic-summary dl {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 10px 12px;
+	margin: 16px 0 20px;
+}
+
+.hic-summary dt {
+	color: var(--hic-muted);
+}
+
+.hic-summary dd {
+	margin: 0;
+	font-weight: 600;
+	text-align: right;
+}
+
+/* Buttons */
+
+.hic-wrap .hic-button-lg {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 40px;
+	margin: 0;
+	padding: 0 18px;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1;
+}
+
+.hic-wrap .hic-button-lg .dashicons {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+	line-height: 1;
+}
+
+.hic-wrap .hic-button-lg:disabled {
+	cursor: progress;
+}
+
+.hic-wrap .hic-button-danger {
+	border-color: #e6b8b8;
+	background: #fff;
+	color: #b32d2e;
+}
+
+.hic-wrap .hic-button-danger:hover,
+.hic-wrap .hic-button-danger:focus {
+	border-color: var(--hic-error);
+	background: var(--hic-error-soft);
+	color: #8a2424;
+}
+
+.hic-wrap .hic-button-danger:focus {
+	box-shadow: 0 0 0 1px var(--hic-error);
+}
+
+/* Progress */
+
+.hic-run {
+	margin-bottom: 16px;
+	padding: 14px 16px;
+	border-radius: 10px;
+	background: var(--hic-accent-soft);
+}
+
+.hic-bar {
+	height: 8px;
+	overflow: hidden;
+	border-radius: 999px;
+	background: #c5d9ed;
+}
+
+.hic-bar span {
+	display: block;
+	width: 0;
+	height: 100%;
+	border-radius: inherit;
+	background: linear-gradient(90deg, #2271b1, #3858e9);
+	transition: width 0.3s ease;
+}
+
+.hic-progress {
+	margin: 8px 0 0;
+	font-weight: 600;
+}
+
+/* Tables */
+
+.hic-table-wrap {
+	overflow-x: auto;
+	border: 1px solid var(--hic-border);
+	border-radius: 10px;
 }
 
 .hic-table {
-	max-width: 900px;
+	width: 100%;
+	border-collapse: collapse;
 }
 
-.hic-status.is-busy {
-	color: #2271b1;
+.hic-table th {
+	padding: 10px 14px;
+	border-bottom: 1px solid var(--hic-border);
+	background: #f6f7f7;
+	color: var(--hic-muted);
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	text-align: left;
+	text-transform: uppercase;
 }
 
-.hic-status.is-done {
-	color: #00a32a;
+.hic-table td {
+	padding: 10px 14px;
+	border-bottom: 1px solid #f0f0f1;
+	vertical-align: middle;
+}
+
+.hic-table tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+.hic-table tbody tr:hover {
+	background: #f9fafb;
+}
+
+.hic-file {
+	word-break: break-all;
+}
+
+.hic-file a {
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.hic-nowrap {
+	white-space: nowrap;
+}
+
+.hic-details {
+	color: var(--hic-muted);
+	font-size: 13px;
+}
+
+.hic-thumb {
+	display: inline-grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+	overflow: hidden;
+	border-radius: 8px;
+	background: #f0f0f1;
+	color: #a7aaad;
+	vertical-align: middle;
+}
+
+.hic-thumb img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Status pills */
+
+.hic-pill {
+	display: inline-block;
+	padding: 3px 10px;
+	border-radius: 999px;
+	background: #f0f0f1;
+	color: var(--hic-muted);
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+.hic-pill.is-busy {
+	background: var(--hic-accent-soft);
+	color: var(--hic-accent);
+}
+
+.hic-pill.is-done {
+	background: var(--hic-ok-soft);
+	color: #007017;
+}
+
+.hic-pill.is-error {
+	background: var(--hic-error-soft);
+	color: #b32d2e;
+	white-space: normal;
+}
+
+.hic-source {
+	margin-left: 6px;
+	color: var(--hic-muted);
+	font-size: 12px;
+}
+
+/* Logs filters + pagination */
+
+.hic-segmented {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	margin-bottom: 16px;
+	padding: 4px;
+	border-radius: 10px;
+	background: #f0f0f1;
+}
+
+.hic-segmented a {
+	padding: 6px 12px;
+	border-radius: 7px;
+	color: var(--hic-muted);
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.hic-segmented a.is-active {
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	color: var(--hic-text);
+}
+
+.hic-count {
+	margin-left: 4px;
+	padding: 0 6px;
+	border-radius: 999px;
+	background: rgba(0, 0, 0, 0.06);
+	font-size: 11px;
+}
+
+.hic-pagination {
+	margin-top: 16px;
+}
+
+.hic-pagination .page-numbers {
+	display: inline-block;
+	min-width: 30px;
+	padding: 4px 8px;
+	border-radius: 6px;
+	text-align: center;
+	text-decoration: none;
+}
+
+.hic-pagination .page-numbers.current {
+	background: var(--hic-accent);
+	color: #fff;
+}
+
+/* Empty states */
+
+.hic-empty {
+	padding: 40px 20px;
+	text-align: center;
+}
+
+.hic-empty > .dashicons {
+	width: 48px;
+	height: 48px;
+	color: var(--hic-ok);
+	font-size: 48px;
+}
+
+.hic-empty > .dashicons.is-muted {
+	color: #a7aaad;
+}
+
+.hic-empty h3 {
+	margin: 12px 0 4px;
+	font-size: 16px;
+}
+
+.hic-empty p {
+	margin: 0;
+	color: var(--hic-muted);
+}
+
+/* Settings */
+
+.hic-settings {
+	max-width: 860px;
+}
+
+.hic-field {
+	margin: 20px 0 0;
+	padding: 0;
+	border: 0;
+}
+
+.hic-field > label,
+.hic-field > legend {
+	display: block;
+	margin-bottom: 8px;
+	padding: 0;
 	font-weight: 600;
 }
 
-.hic-status.is-error {
-	color: #d63638;
+.hic-field .hic-muted {
+	margin-top: 6px;
+	font-size: 13px;
+}
+
+.hic-choices {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 12px;
+}
+
+.hic-choice {
+	display: flex;
+	gap: 10px;
+	padding: 14px 16px;
+	border: 1px solid var(--hic-border);
+	border-radius: 10px;
+	cursor: pointer;
+	transition: border-color 0.15s, background 0.15s;
+}
+
+.hic-choice input {
+	margin-top: 2px !important;
+}
+
+.hic-choice span {
+	color: var(--hic-muted);
+	font-size: 13px;
+}
+
+.hic-choice strong {
+	display: block;
+	color: var(--hic-text);
+	font-size: 14px;
+}
+
+.hic-choice:has(input:checked) {
+	border-color: var(--hic-accent);
+	background: var(--hic-accent-soft);
+	box-shadow: 0 0 0 1px var(--hic-accent);
+}
+
+.hic-range {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	max-width: 420px;
+}
+
+.hic-range input[type="range"] {
+	flex: 1;
+	accent-color: var(--hic-accent);
+}
+
+.hic-range output {
+	min-width: 48px;
+	padding: 4px 8px;
+	border-radius: 6px;
+	background: var(--hic-accent-soft);
+	color: var(--hic-accent);
+	font-weight: 600;
+	text-align: center;
+}
+
+.hic-input-suffix {
+	display: inline-flex;
+	align-items: stretch;
+}
+
+.hic-wrap .hic-input-suffix input {
+	width: 110px;
+	margin: 0;
+	border-radius: 6px 0 0 6px;
+}
+
+.hic-input-suffix span {
+	display: flex;
+	align-items: center;
+	padding: 0 12px;
+	border: 1px solid #8c8f94;
+	border-left: 0;
+	border-radius: 0 6px 6px 0;
+	background: #f6f7f7;
+	color: var(--hic-muted);
+}
+
+/* Switches: the checkbox is visually hidden but still focusable. */
+
+.hic-switch {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 14px;
+	padding: 14px 0;
+	border-top: 1px solid #f0f0f1;
+	cursor: pointer;
+}
+
+.hic-card h2 + .hic-switch {
+	margin-top: 8px;
+	border-top: 0;
+}
+
+.hic-switch input {
+	position: absolute;
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+	margin: 0;
+}
+
+.hic-switch__track {
+	position: relative;
+	flex: none;
+	width: 38px;
+	height: 22px;
+	margin-top: 1px;
+	border-radius: 999px;
+	background: #c3c4c7;
+	transition: background 0.2s;
+}
+
+.hic-switch__track::after {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	transition: transform 0.2s;
+}
+
+.hic-switch input:checked + .hic-switch__track {
+	background: var(--hic-accent);
+}
+
+.hic-switch input:checked + .hic-switch__track::after {
+	transform: translateX(16px);
+}
+
+.hic-switch input:focus-visible + .hic-switch__track {
+	outline: 2px solid var(--hic-accent);
+	outline-offset: 2px;
+}
+
+.hic-switch__text strong {
+	display: block;
+	font-weight: 600;
+}
+
+.hic-switch__text span {
+	color: var(--hic-muted);
+	font-size: 13px;
+}
+
+.hic-actions {
+	position: sticky;
+	bottom: 0;
+	padding: 12px 0 20px;
+	background: linear-gradient(to top, #f0f0f1 70%, rgba(240, 240, 241, 0));
+}
+
+/* Button groups, callouts */
+
+.hic-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.hic-buttons form {
+	margin: 0;
+}
+
+/* Toolbar buttons with an icon (Logs: Download CSV / Clear log). */
+.hic-wrap .hic-buttons .button:not(.hic-button-lg) {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 34px;
+	margin: 0;
+	padding: 0 14px;
+	border-radius: 8px;
+	font-weight: 500;
+	line-height: 1;
+}
+
+.hic-wrap .hic-buttons .button:not(.hic-button-lg) .dashicons {
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	line-height: 1;
+}
+
+.hic-callout {
+	display: flex;
+	gap: 10px;
+	margin: 20px 0 0;
+	padding: 12px 14px;
+	border-radius: 10px;
+	background: var(--hic-accent-soft);
+	color: var(--hic-text);
+	font-size: 13px;
+}
+
+.hic-callout .dashicons {
+	flex: none;
+	color: var(--hic-accent);
+}
+
+.hic-wrap select {
+	min-width: 110px;
+	border-radius: 6px;
+}
+
+/* Help page */
+
+.hic-steps {
+	margin: 16px 0 0;
+	padding: 0;
+	list-style: none;
+	counter-reset: hic-step;
+}
+
+.hic-steps li {
+	position: relative;
+	margin: 0;
+	padding: 0 0 18px 44px;
+	counter-increment: hic-step;
+}
+
+.hic-steps li:last-child {
+	padding-bottom: 0;
+}
+
+.hic-steps li::before {
+	content: counter(hic-step);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: grid;
+	place-items: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	background: var(--hic-accent-soft);
+	color: var(--hic-accent);
+	font-weight: 600;
+}
+
+.hic-steps strong {
+	display: block;
+	margin-bottom: 2px;
+}
+
+.hic-steps span {
+	color: var(--hic-muted);
+}
+
+.hic-faq {
+	margin-top: 12px;
+}
+
+.hic-faq details {
+	border-top: 1px solid #f0f0f1;
+}
+
+.hic-faq details:first-child {
+	border-top: 0;
+}
+
+.hic-faq summary {
+	padding: 12px 0;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.hic-faq summary:focus-visible {
+	outline: 2px solid var(--hic-accent);
+	outline-offset: 2px;
+}
+
+.hic-faq details p {
+	margin: 0 0 14px;
+	color: var(--hic-muted);
+}
+
+.hic-summary dd .dashicons {
+	color: var(--hic-ok);
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+.hic-summary dd.is-bad,
+.hic-summary dd.is-bad .dashicons {
+	color: var(--hic-error);
+}
+
+.hic-links {
+	margin: 12px 0 0;
+}
+
+.hic-links li {
+	margin: 0;
+}
+
+.hic-links a {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 0;
+	text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.hic-wrap *,
+	.hic-wrap *::after {
+		transition: none !important;
+	}
+}
+
+@media (max-width: 782px) {
+	.hic-card {
+		padding: 16px;
+	}
+
+	.hic-header {
+		align-items: flex-start;
+	}
+
+	.hic-nav a {
+		padding: 10px 12px;
+	}
 }

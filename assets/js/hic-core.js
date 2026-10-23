@@ -152,7 +152,7 @@
 					if (!bitmap || !bitmap.width || !bitmap.height) {
 						throw new Error('empty image');
 					}
-					return bitmap;
+					return { bitmap: bitmap, decoder: decoders[i][0] };
 				}
 			).catch(function (e) {
 				errors.push(decoders[i][0] + ': ' + errorText(e));
@@ -209,29 +209,115 @@
 
 	/**
 	 * Converts a HEIC Blob/File to a JPG or PNG File.
+	 * The result also carries hicDecoder (which decoder worked) and hicMs (time taken).
 	 * @returns {Promise<File>}
 	 */
 	function convert(blob, name) {
+		return limit(function () {
+			return convertNow(blob, name);
+		});
+	}
+
+	/* A full-size 48 MP photo needs several hundred MB while decoding, so only
+	   a few are converted at the same time; the rest wait in this queue. */
+	var active = 0;
+	var queue = [];
+
+	function limit(task) {
+		var max = Math.max(1, parseInt(cfg.concurrency, 10) || 2);
+		return new Promise(function (resolve, reject) {
+			function start() {
+				active++;
+				task().then(resolve, reject).then(finish);
+			}
+			function finish() {
+				active--;
+				if (queue.length) {
+					queue.shift()();
+				}
+			}
+			if (active < max) {
+				start();
+			} else {
+				queue.push(start);
+			}
+		});
+	}
+
+	function convertNow(blob, name) {
 		var type = targetType();
+		var started = Date.now();
+		var decoder = '';
 		return decode(blob)
-			.then(function (bitmap) {
-				return encode(bitmap, type).then(function (out) {
+			.then(function (decoded) {
+				var bitmap = decoded.bitmap;
+				decoder = decoded.decoder;
+				function close() {
 					if (bitmap.close) {
 						bitmap.close();
 					}
-					return out;
-				});
+				}
+				return encode(bitmap, type).then(
+					function (out) { close(); return out; },
+					function (e) { close(); throw e; }
+				);
 			})
 			.then(function (out) {
 				var fileName = outputName(name);
+				var file;
 				try {
-					return new File([out], fileName, { type: type, lastModified: Date.now() });
+					file = new File([out], fileName, { type: type, lastModified: Date.now() });
 				} catch (e) {
-					out.name = fileName;
-					out.lastModified = Date.now();
-					return out;
+					file = out;
+					file.name = fileName;
+					file.lastModified = Date.now();
 				}
+				file.hicDecoder = decoder;
+				file.hicMs = Date.now() - started;
+				return file;
 			});
+	}
+
+	/* ---- Plugin REST API ---------------------------------------------- */
+
+	/** POSTs FormData to /wp-json/hic/v1/<path>. Rejects with err.status on HTTP errors. */
+	function post(path, body) {
+		return window.fetch(cfg.restUrl + path, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: { 'X-WP-Nonce': cfg.nonce },
+			body: body
+		}).then(function (res) {
+			return res.json().catch(function () { return {}; }).then(function (json) {
+				if (!res.ok) {
+					var err = new Error((json && json.message) || 'HTTP ' + res.status);
+					err.status = res.status;
+					throw err;
+				}
+				return json;
+			});
+		});
+	}
+
+	/** Adds an upload conversion to the plugin's log. Never throws. */
+	function log(data) {
+		if (!cfg.restUrl || !window.fetch || !window.FormData) {
+			return;
+		}
+		var fd = new window.FormData();
+		Object.keys(data).forEach(function (key) {
+			fd.append(key, data[key] == null ? '' : data[key]);
+		});
+		post('log', fd).catch(function () {});
+	}
+
+	/** Logs the result of converting a file before upload. */
+	function logUpload(original, name, converted, err) {
+		if (converted) {
+			log({ level: 'success', name: name, output: converted.name, in_size: original.size, out_size: converted.size, ms: converted.hicMs, decoder: converted.hicDecoder });
+		} else {
+			log({ level: 'error', name: name, in_size: original.size, message: errorText(err) + (err && err.details ? ' [' + err.details + ']' : '') });
+		}
 	}
 
 	function sprintf(str, value) {
@@ -278,6 +364,8 @@
 		decode: decode,
 		outputName: outputName,
 		errorText: errorText,
+		post: post,
+		logUpload: logUpload,
 		toast: toast,
 		sprintf: sprintf,
 		i18n: i18n

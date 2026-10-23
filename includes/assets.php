@@ -5,8 +5,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/** Hook suffix of the Media → HEIC Converter page (set in admin-page.php). */
-$GLOBALS['hic_page_hook'] = '';
+/** Hook suffixes of the plugin's admin pages (set in admin-page.php). */
+$GLOBALS['hic_page_hooks'] = array();
 /** Whether the background converter runs on the current admin page. */
 $GLOBALS['hic_bg_active'] = false;
 
@@ -16,7 +16,7 @@ function hic_register_core() {
 	}
 	$s = hic_get_settings();
 
-	wp_register_style( 'hic-admin', HIC_URL . 'assets/css/hic-admin.css', array(), HIC_VERSION );
+	wp_register_style( 'hic-admin', HIC_URL . 'assets/css/hic-admin.css', array( 'dashicons' ), HIC_VERSION );
 	wp_register_script( 'hic-core', HIC_URL . 'assets/js/hic-core.js', array(), HIC_VERSION, true );
 	wp_localize_script( 'hic-core', 'hicSettings', array(
 		'libs'    => array(
@@ -26,16 +26,25 @@ function hic_register_core() {
 		'format'  => $s['format'],
 		'quality' => max( 0.1, min( 1, ( (int) $s['quality'] ) / 100 ) ),
 		'maxSize' => (int) $s['max_size'],
+		'concurrency' => max( 1, min( 4, (int) $s['concurrency'] ) ),
+		'restUrl' => esc_url_raw( rest_url( 'hic/v1/' ) ),
+		'nonce'   => wp_create_nonce( 'wp_rest' ),
 		'i18n'    => array(
-			'unsupported' => __( 'This HEIC photo could not be read by any of the converters.', 'heic-to-jpg-converter' ),
+			'unsupported' => __( 'This HEIC photo could not be read by any of the converters.', 'manpreetdev-heic-to-jpg-converter' ),
 			/* translators: %s: file name */
-			'converting' => __( 'Converting %s…', 'heic-to-jpg-converter' ),
+			'converting' => __( 'Converting %s…', 'manpreetdev-heic-to-jpg-converter' ),
 			/* translators: %s: new file name */
-			'converted'  => __( 'Converted to %s — uploading.', 'heic-to-jpg-converter' ),
+			'converted'  => __( 'Converted to %s — uploading.', 'manpreetdev-heic-to-jpg-converter' ),
 			/* translators: %s: file name */
-			'failed'     => __( 'Could not convert %s in this browser. Uploading the original; it can be converted later from Media → HEIC Converter.', 'heic-to-jpg-converter' ),
+			'failed'     => __( 'Could not convert %s in this browser. Uploading the original; it can be converted later from HEIC Converter → Tools.', 'manpreetdev-heic-to-jpg-converter' ),
 		),
 	) );
+}
+
+/** Whether new uploads should be converted in the browser (the server may do it instead). */
+function hic_convert_uploads_in_browser() {
+	$s = hic_get_settings();
+	return ! empty( $s['convert_uploads'] ) && ! hic_use_server();
 }
 
 /**
@@ -43,17 +52,15 @@ function hic_register_core() {
  * Elementor and any other screen that uses wp.media).
  */
 function hic_enqueue_uploader_support( $extra_deps = array() ) {
-	if ( ! is_user_logged_in() || ! current_user_can( 'upload_files' ) ) {
-		return;
-	}
-	$s = hic_get_settings();
-	if ( empty( $s['convert_uploads'] ) ) {
+	if ( ! is_user_logged_in() || ! current_user_can( 'upload_files' ) || ! hic_convert_uploads_in_browser() ) {
 		return;
 	}
 	hic_register_core();
 	wp_enqueue_style( 'hic-admin' );
 
-	$deps = array_merge( array( 'hic-core', 'jquery' ), (array) $extra_deps );
+	// Hooks fired without arguments (wp_enqueue_media, Elementor) pass '' here; an empty
+	// dependency would stop WordPress from printing the script at all.
+	$deps = array_merge( array( 'hic-core', 'jquery' ), array_filter( (array) $extra_deps ) );
 	if ( wp_script_is( 'wp-plupload', 'registered' ) ) {
 		$deps[] = 'wp-plupload';
 	}
@@ -64,11 +71,7 @@ add_action( 'elementor/editor/after_enqueue_scripts', 'hic_enqueue_uploader_supp
 
 /** Block editor: convert HEIC files dropped into image/gallery/cover blocks. */
 add_action( 'enqueue_block_editor_assets', function () {
-	if ( ! current_user_can( 'upload_files' ) ) {
-		return;
-	}
-	$s = hic_get_settings();
-	if ( empty( $s['convert_uploads'] ) ) {
+	if ( ! current_user_can( 'upload_files' ) || ! hic_convert_uploads_in_browser() ) {
 		return;
 	}
 	hic_register_core();
@@ -84,22 +87,22 @@ function hic_enqueue_bulk( $mode, $ids, $auto_start ) {
 	wp_localize_script( 'hic-bulk', 'hicBulk', array(
 		'mode'      => $mode,
 		'items'     => array_map( 'hic_item_data', $ids ),
-		'restUrl'   => esc_url_raw( rest_url( 'hic/v1/' ) ),
-		'nonce'     => wp_create_nonce( 'wp_rest' ),
 		'autoStart' => (bool) $auto_start,
-		'toolUrl'   => admin_url( 'upload.php?page=hic-converter' ),
+		'server'    => hic_use_server(),
 		'i18n'      => array(
-			'waiting'     => __( 'Waiting', 'heic-to-jpg-converter' ),
-			'downloading' => __( 'Downloading…', 'heic-to-jpg-converter' ),
-			'converting'  => __( 'Converting…', 'heic-to-jpg-converter' ),
-			'uploading'   => __( 'Saving…', 'heic-to-jpg-converter' ),
-			'done'        => __( 'Converted', 'heic-to-jpg-converter' ),
-			'failed'      => __( 'Failed', 'heic-to-jpg-converter' ),
+			'waiting'     => __( 'Waiting', 'manpreetdev-heic-to-jpg-converter' ),
+			'serverConverting' => __( 'Converting on server…', 'manpreetdev-heic-to-jpg-converter' ),
+			'downloading' => __( 'Downloading…', 'manpreetdev-heic-to-jpg-converter' ),
+			'converting'  => __( 'Converting…', 'manpreetdev-heic-to-jpg-converter' ),
+			'uploading'   => __( 'Saving…', 'manpreetdev-heic-to-jpg-converter' ),
+			'done'        => __( 'Converted', 'manpreetdev-heic-to-jpg-converter' ),
+			'elsewhere'   => __( 'Being converted in another tab', 'manpreetdev-heic-to-jpg-converter' ),
+			'failed'      => __( 'Failed', 'manpreetdev-heic-to-jpg-converter' ),
 			/* translators: 1: processed count, 2: total count */
-			'progress'    => __( 'Converting HEIC images: %1$d of %2$d…', 'heic-to-jpg-converter' ),
+			'progress'    => __( 'Converting HEIC images: %1$d of %2$d…', 'manpreetdev-heic-to-jpg-converter' ),
 			/* translators: 1: converted count, 2: failed count */
-			'finished'    => __( 'Finished. %1$d converted, %2$d failed.', 'heic-to-jpg-converter' ),
-			'leaveWarn'   => __( 'HEIC images are still being converted. Leave anyway?', 'heic-to-jpg-converter' ),
+			'finished'    => __( 'Finished. %1$d converted, %2$d failed.', 'manpreetdev-heic-to-jpg-converter' ),
+			'leaveWarn'   => __( 'HEIC images are still being converted. Leave anyway?', 'manpreetdev-heic-to-jpg-converter' ),
 		),
 	) );
 }
@@ -116,9 +119,9 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
 
 	$s = hic_get_settings();
 
-	// Media → HEIC Converter page.
-	if ( $GLOBALS['hic_page_hook'] && $hook === $GLOBALS['hic_page_hook'] ) {
-		$ids = hic_get_pending_ids( 200, true );
+	// The plugin's own pages: Tools runs the converter, Settings/Logs only need styles.
+	if ( hic_is_plugin_screen( $hook ) ) {
+		$ids = $hook === $GLOBALS['hic_page_hooks']['tools'] ? hic_get_pending_ids( 200, true ) : array();
 		if ( $ids ) {
 			hic_enqueue_bulk( 'page', $ids, ! empty( $s['auto_existing'] ) );
 		} else {

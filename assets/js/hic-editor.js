@@ -34,6 +34,7 @@
 			function (converted) {
 				body.set('file', converted, converted.name);
 				t.update(HIC.sprintf(HIC.i18n.converted, converted.name), 'success');
+				HIC.logUpload(file, name, converted);
 				return next(options);
 			},
 			function (err) {
@@ -41,6 +42,7 @@
 					window.console.error('HEIC conversion failed:', err, err && err.details);
 				}
 				t.update(HIC.sprintf(HIC.i18n.failed, name), 'error');
+				HIC.logUpload(file, name, null, err);
 				return next(options);
 			}
 		);
