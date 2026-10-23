@@ -1,5 +1,5 @@
 # Build output (release zip lives in the plugin root)
-*.zip
+.zip
 
 # Dependencies
 node_modules/
